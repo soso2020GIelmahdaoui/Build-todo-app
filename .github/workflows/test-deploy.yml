@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: node-version: '20'
+      - uses: actions/setup-node@v4 # Corrected action name
+        with:
+          node-version: "20"
       - name: install dependencies
         run: npm install
       - name: run tests
         run: npm run test
+
   build:
     runs-on: ubuntu-latest
     needs: test
@@ -22,18 +24,17 @@ jobs:
       - uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME}}/app_todo:latest  
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app_todo:latest
+
   deploy:
     runs-on: ubuntu-latest
     needs: test
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: node-version: '20'
+      - uses: actions/setup-node@v4 # Corrected action name
+        with:
+          node-version: "20"
       - name: install dependencies
         run: npm install
       - name: deploy Api
         run: echo 'deployement ...'
-
-   
-   
